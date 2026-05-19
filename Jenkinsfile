@@ -10,7 +10,6 @@ pipeline {
             steps {
                 sh 'whoami'
                 sh 'ansible --version'
-                }
             }
         }
     }
