@@ -1,0 +1,15 @@
+# ansible server1 -i hosts -m ansible.builtin.yum -a "name=nmap state=latest" -u ec2-user --become
+- hosts: server1
+  remote_user: ec2-user
+  become: true
+
+  tasks:
+    - name: Install Git
+      ansible.builtin.yum:
+        name: git
+        state: latest
+    # yum search java
+    - name: Install Java
+      yum:
+        name: java-21-amazon-corretto
+        state: latest
