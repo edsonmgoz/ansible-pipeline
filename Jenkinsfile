@@ -5,11 +5,21 @@ pipeline {
             args '-u root:root'
         }
     }
+    environment {
+        ANSIBLE_HOST_KEY_CHECKING = 'False'
+    }
     stages {
         stage('ansible') {
             steps {
                 sh 'whoami'
                 sh 'ansible --version'
+
+                sh 'env | sort'
+                sh 'ansible-inventory --list'
+
+                sshagent(credentials: ['amazon-linux-private-key']) {
+                    sh 'ansible server1 -i hosts -m ping -u ec2-user'
+                }
             }
         }
     }
